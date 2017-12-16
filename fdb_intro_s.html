@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="前田和寛(kazutan)" />
+  <title>flexdashboard本格入門</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="fdb_intro_s_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="fdb_intro_s_files/reveal.js-3.3.0.1/css/theme/sky.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+  
+  <!-- for leaflet -->
+  <style type="text/css">
+    .reveal .leaflet-container img {
+    max-height: none !important;
+    }
+  </style>
+
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="assets/css/for-revealjs-sky.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">flexdashboard本格入門</h1>
+    <h2 class="author">前田和寛(kazutan)</h2>
+    <h3 class="date">2017年12月16日</h3>
+</section>
+
+<section><section id="はじめに" class="titleslide slide level1"><h1>はじめに</h1></section><section id="自己紹介" class="slide level2 twocol">
+<h2>自己紹介</h2>
+<h3 id="section" class="left"></h3>
+<ul>
+<li>前田 和寛</li>
+<li>比治山大学短期大学部</li>
+<li><span class="citation" data-cites="kazutan">@kazutan</span>
+<ul>
+<li>twitter</li>
+<li>GitHub</li>
+<li>Qiita</li>
+</ul></li>
+<li><a href="https://kazutan.github.io/kazutanR/">Kazutan.R</a></li>
+<li>Rおじさん</li>
+</ul>
+<h3 id="section-1" class="right"></h3>
+<p><img src="pics/user.png" /></p>
+</section><section id="こんなことしてます" class="slide level2">
+<h2>こんなことしてます</h2>
+<p><img src="pics/4dogs_bayse_page.png" /></p>
+</section><section id="今日のお話" class="slide level2">
+<h2>今日のお話</h2>
+<p>flexdashboardの本格入門</p>
+<ul>
+<li>特徴と導入</li>
+<li>hello, dashboard!</li>
+<li>全体設定(yaml部分)</li>
+<li>ダッシュボードレイアウト</li>
+<li>構成要素</li>
+<li>応用技</li>
+<li>Shinyの利用</li>
+<li>デプロイ(公開)</li>
+<li>留意事項</li>
+</ul>
+</section></section>
+<section><section id="flaxdashboardとは" class="titleslide slide level1"><h1>flaxdashboardとは</h1></section><section id="rmarkdownでダッシュボード作成" class="slide level2">
+<h2>rmarkdownでダッシュボード作成</h2>
+<ul>
+<li>rmarkdownのテンプレートパッケージ
+<ul>
+<li>単一のRmdファイルからダッシュボード生成</li>
+<li>基本的な作り方は一緒</li>
+</ul></li>
+<li>単一ファイルで出力
+<ul>
+<li><code>self_contained: true</code>でhtmlファイルにまとめられる</li>
+<li>でもタブ機能やメニュー機能もある</li>
+</ul></li>
+<li>レイアウト調整・テーマ変更も簡単
+<ul>
+<li>cssを書かなくてもできる</li>
+<li>テーマも色々ある</li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<p>サンプルその1:</p>
+<p><img src="pics/fdb/fdb_sample_typhoon.png" /></p>
+</section><section class="slide level2">
+
+<p>サンプルその2:</p>
+<p><img src="pics/fdb/fdb_sample_jssp.png" /></p>
+</section><section class="slide level2">
+
+<p>サンプルその3:</p>
+<p><img src="pics/fdb/fdb_sample_kosaki.png" /></p>
+</section><section id="インストール" class="slide level2">
+<h2>インストール</h2>
+<ul>
+<li>パッケージをインストール:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># CRANから</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;flexdashboard&quot;</span>)
+<span class="co"># GitHubから</span>
+remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rstudio/flexdashboard&quot;</span>)
+<span class="co"># githubinstallで</span>
+githubinstall<span class="op">::</span><span class="kw">githubinstall</span>(<span class="st">&quot;flexdashboard&quot;</span>)</code></pre></div>
+<ul>
+<li>関連するパッケージはアップデートしておいてください:
+<ul>
+<li>rmarkdown</li>
+<li>knitr(<strong>v1.17では不具合</strong>あり。<strong>v1.17.20</strong>以上推奨。)</li>
+<li>htmlwidgets系パッケージ(使うなら)</li>
+<li>shiny系パッケージ(使うなら)</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="hello-dashboard" class="titleslide slide level1"><h1>hello, dashboard!</h1></section><section id="テンプレートから生成" class="slide level2 twocol">
+<h2>テンプレートから生成</h2>
+<h3 id="section-2" class="left"></h3>
+<ol type="1">
+<li>R Markdownを新規作成</li>
+<li><strong>From Template</strong>を選択</li>
+<li><strong>Flex Dashboard</strong>を選択</li>
+<li><strong>OK</strong>をクリック</li>
+</ol>
+<h3 id="section-3" class="right"></h3>
+<p><img src="pics/fdb/fdb_create.png" /></p>
+</section><section id="rmdを素のままknit" class="slide level2 twocol">
+<h2>Rmdを素のままKnit</h2>
+<h3 id="section-4" class="left"></h3>
+<ol type="1">
+<li>右のようなRmdファイルが生成</li>
+<li>まずはそのままKnit
+<ul>
+<li>“Rmds/fdb_base.Rmd” で今回は保存</li>
+</ul></li>
+</ol>
+<h3 id="section-5" class="right"></h3>
+<p><img src="pics/fdb/fdb_default.png" /></p>
+</section><section id="できた" class="slide level2">
+<h2>できた</h2>
+<p><img src="pics/fdb/fdb_defalut_knit.png" /></p>
+</section><section id="表を差し込んでみよう" class="slide level2">
+<h2>表を差し込んでみよう</h2>
+<ul>
+<li><strong>Save As…</strong> で “Rmds/fdb_base1.Rmd”として保存</li>
+<li>ひとつ目のチャンクに以下のコードを記述
+<ul>
+<li><strong>irisの全レコードそのまま出させる</strong></li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(mtcars)</code></pre></div>
+</section><section class="slide level2">
+
+<p>こうなる:</p>
+<p><img src="pics/fdb/fdb_kable.png" /></p>
+</section><section id="plotを差し込んでみよう" class="slide level2">
+<h2>plotを差し込んでみよう</h2>
+<p>ふたつ目のチャンクにggplot2で描いてみる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p>みっつ目のチャンクにplotlyで描いてみる</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(plotly)
+<span class="kw">plot_ly</span>(<span class="dt">data =</span> mtcars, <span class="dt">x =</span> <span class="op">~</span>cyl, <span class="dt">y =</span><span class="op">~</span>mpg, <span class="dt">type =</span> <span class="st">&quot;box&quot;</span>)</code></pre></div>
+</section><section class="slide level2">
+
+<p>こうなった:</p>
+<p><img src="pics/fdb/fdb_base1.png" /></p>
+</section></section>
+<section><section id="全体設定yaml部分" class="titleslide slide level1"><h1>全体設定(yaml部分)</h1></section><section id="基本" class="slide level2">
+<h2>基本</h2>
+<pre><code>---
+title: &quot;ダッシュボードタイトル&quot;
+output:
+  flexdashboard::flex_dashboard:
+    (以下，設定項目)
+---</code></pre>
+<ul>
+<li>titleはウィンドウ左上にでます</li>
+<li>記述方法はこれまでのR Markdownと同一です</li>
+<li>flexdashboard特有で，ポイントになるのを紹介</li>
+<li>詳細な項目については，<code>?flexdashboard::flex_dashboard</code>のUsageを参照</li>
+</ul>
+</section><section id="fig関連" class="slide level2">
+<h2>fig関連</h2>
+<ul>
+<li>fig_mobile
+<ul>
+<li>モバイル(幅が小さい画面)用にfigをさらに作るかどうか</li>
+<li><strong>true(デフォルト)</strong>なら，モバイル用に作成</li>
+<li><strong>false</strong>なら，作成しない</li>
+<li>長さ2の数値ベクトルを与えると，その大きさでモバイル用figを作成</li>
+</ul></li>
+<li>fig_width, fig_height, fig_retina
+<ul>
+<li>通常のrmarkdownと同一なので省略</li>
+</ul></li>
+</ul>
+</section><section id="favicon-logo" class="slide level2">
+<h2>favicon, logo</h2>
+<ul>
+<li>favicon
+<ul>
+<li>ダッシュボードに使うファビコン画像へのpathを指定</li>
+</ul></li>
+<li>logo
+<ul>
+<li>ダッシュボードのロゴとして使う画像へのpathを指定</li>
+<li>ナビゲーションバー(navbar)で表示</li>
+<li>ただし，<strong>画像サイズは調整されない</strong>ので注意</li>
+<li><code>theme: cosmo</code>(defaultと同値)だと48px</li>
+</ul></li>
+</ul>
+</section><section id="fdb_theme" class="slide level2">
+<h2>theme</h2>
+<ul>
+<li>theme
+<ul>
+<li>ダッシュボードのテーマを指定</li>
+<li>デフォルトは<code>default</code>で，これは<code>cosmo</code>と同値</li>
+<li>現在は，<code>default</code>, <code>bootstrap</code>, <code>cerulean</code>, <code>journal</code>, <code>flatly</code>, <code>readable</code>, <code>spacelab</code>, <code>united</code>, <code>cosmo</code>, <code>lumen</code>, <code>paper</code>, <code>sandstone</code>, <code>simplex</code>, <code>yeti</code>が使用可能</li>
+<li><a href="https://bootswatch.com/">bootswatch</a>のをベースにしているので，一覧はそちらを参照</li>
+</ul></li>
+</ul>
+</section><section id="ナビゲーションバー周辺" class="slide level2">
+<h2>ナビゲーションバー周辺</h2>
+<ul>
+<li>nabvar
+<ul>
+<li>ナビゲーションバーに設置する項目に関して設定</li>
+<li>外部リンクや配置なども設定可能</li>
+<li>詳しくは<a href="http://rmarkdown.rstudio.com/flexdashboard/using.html#navigation_bar">公式サイトの該当箇所</a></li>
+</ul></li>
+<li>social
+<ul>
+<li>要は<strong>共有</strong>のための要素</li>
+<li><code>social: menu</code>とするとTwitter, Facebook, Google+, LinkedIn, Pinterestが選べるように</li>
+<li><code>social: [ &quot;twitter&quot;, &quot;facebook&quot;, &quot;menu&quot; ]</code>を指定してみるとイメージつかめます</li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<ul>
+<li>source_code
+<ul>
+<li>このダッシュボードのソースコードへのpathを指定</li>
+<li>要は「コードを他の人にも見せたい」というときに、ここを使ってください</li>
+<li>おそらくオープンな単発ダッシュボードで使うものだと思います</li>
+</ul></li>
+<li>あとは省略
+<ul>
+<li>レイアウトに関するところは次で</li>
+<li>それ以外でrmarkdown標準のお話は避けます</li>
+<li>気になる方はヘルプを見てください</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="ダッシュボードレイアウト" class="titleslide slide level1"><h1>ダッシュボードレイアウト</h1></section><section id="意識すべきは見出しレベルそしてlv3まで" class="slide level2">
+<h2>意識すべきは見出しレベル、そしてLv3まで</h2>
+<ul>
+<li>flexdashboardはboxシステム
+<ul>
+<li>pandocの<code>--seciton-div</code>を利用し、jsやcssで区分けを実現</li>
+<li>要は<code>html_document</code>の魔改造と思っても間違いはない</li>
+</ul></li>
+<li>以下、ポイントと解説をしていきます
+<ul>
+<li>詳細は、公式サイトの以下のページを参照してください</li>
+<li><a href="http://rmarkdown.rstudio.com/flexdashboard/layouts.html">Sample flexdashboard Layouts</a></li>
+</ul></li>
+</ul>
+</section><section id="lv2_heading" class="slide level2">
+<h2>見出しレベル2: ページ内の親ブロック区切り</h2>
+<ul>
+<li>見出しレベル2があると、その数だけページ内を区切ります
+<ul>
+<li><p>公式やサンプルでは<code>---</code>を使った方法で解説</p>
+<pre><code>ブロック名
+---</code></pre></li>
+<li><p>でもいつもの<code>##</code>でもOK</p>
+<pre><code>## ブロック名</code></pre></li>
+<li>ブロック名のあとに、必要に応じて属性を付与(後述)</li>
+</ul></li>
+<li>この見出しで指定した文字は<strong>表示されません</strong>
+<ul>
+<li>識別用に使用されます</li>
+</ul></li>
+<li>lv2はあくまでブロック区切り用
+<ul>
+<li>コンテンツは基本lv3の下に置くこと</li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<p>例えば以下のようなRmdを用意:</p>
+<p><img src="pics/fdb/fdb_layout_0.png" /></p>
+</section><section class="slide level2">
+
+<p>こんな感じになります:</p>
+<p><img src="pics/fdb/fdb_layout_0_out.png" /></p>
+</section><section id="親ブロックの方向変更" class="slide level2">
+<h2>親ブロックの方向変更</h2>
+<ul>
+<li>デフォルトでは<strong>列</strong>になっている
+<ul>
+<li>lv2が増えると、列が増える</li>
+</ul></li>
+<li><p>親ブロックを行方向に切り替えるには、yamlに以下の設定を付与</p>
+<pre><code>orientation: rows</code></pre></li>
+</ul>
+</section><section class="slide level2">
+
+<p>以下のようなRmdを用意する</p>
+<p><img src="pics/fdb/fdb_layout_1.png" /></p>
+</section><section class="slide level2">
+
+<p>こんな感じになります:</p>
+<p><img src="pics/fdb/fdb_layout_1out.png" /></p>
+</section><section id="lv3_heading" class="slide level2">
+<h2>見出しレベル3: 子ブロック用パネル</h2>
+<ul>
+<li>見出しレベル3(h3)があると、その親ブロック内で子ブロックを作成
+<ul>
+<li><p>いつも通り <code>###</code>で作ります</p>
+<pre><code>### 子ブロックパネル</code></pre></li>
+</ul></li>
+<li>基本このレベルでRチャンクを挿入してコンポーネントを作成</li>
+<li>親ブロック内に子ブロックが複数あると、親と逆の方向で区切っていきます</li>
+<li>この見出しの文字列は子ブロックパネルの見出しとして表示されます</li>
+</ul>
+</section><section class="slide level2">
+
+<p>例えば、以下のようなRmdを準備します:</p>
+<p><img src="pics/fdb/fdb_layout_2.png" /></p>
+</section><section class="slide level2">
+
+<p>こんな感じになります:</p>
+<p><img src="pics/fdb/fdb_layout_2out.png" /></p>
+</section><section id="タブセットの利用" class="slide level2">
+<h2>タブセットの利用</h2>
+<ul>
+<li>親ブロック(見出しレベル2)内で、子ブロックをタブセットにできます</li>
+<li>親ブロックに、以下のようなものを追加
+<ul>
+<li>これでこのブロック全体に<code>class=&quot;tabset&quot;</code>が付与される</li>
+<li>あとはfdb内部が頑張って処理してくれる</li>
+</ul></li>
+</ul>
+<pre><code>## 親ブロック {.tabset}</code></pre>
+</section><section class="slide level2">
+
+<p>例えば、以下のようなRmdを準備します:</p>
+<p><img src="pics/fdb/fdb_layout_3.png" /></p>
+</section><section class="slide level2">
+
+<p>こんな感じになります</p>
+<p><img src="pics/fdb/fdb_layout_3out.png" /></p>
+</section><section id="幅や高さの調整" class="slide level2">
+<h2>幅や高さの調整</h2>
+<ul>
+<li>標準では並列ブロック数で均等割</li>
+<li>見出し行に、<code>{data-width=600}</code>といった感じでつければOK
+<ul>
+<li>この数値は<strong>固定値ではありません</strong></li>
+<li>ただ全部に振ってない場合は、横幅1100くらいでさばいてるっぽい</li>
+</ul></li>
+</ul>
+<pre><code>## 親ブロック{data-width=600}</code></pre>
+</section><section class="slide level2">
+
+<p>例えば、以下のようなRmdを準備します:</p>
+<p><img src="pics/fdb/fdb_layout_4.png" /></p>
+</section><section class="slide level2">
+
+<p>こんな感じになります:</p>
+<p><img src="pics/fdb/fdb_layout_4out.png" /></p>
+</section><section id="スクロールか満たすか" class="slide level2">
+<h2>スクロールか満たすか</h2>
+<ul>
+<li>デフォルトでは、ウィンドウサイズにピッタリ満たす(fill)</li>
+<li>でもスクロールさせたりすることも可能
+<ul>
+<li><code>vertical-layout: scroll</code>で縦方向スクロールするように</li>
+</ul></li>
+</ul>
+<pre><code>output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll</code></pre>
+</section><section class="slide level2">
+
+<p>例えば、以下のようなRmdを準備します:</p>
+<p><img src="pics/fdb/fdb_layout_5.png" /></p>
+</section><section class="slide level2">
+
+<p>こんな感じになります:</p>
+<p><img src="pics/fdb/fdb_layout_5out.png" /></p>
+</section><section id="複数ページ化" class="slide level2">
+<h2>複数ページ化</h2>
+<ul>
+<li>見出しレベル1で複数ページ(メニューバーで項目が出る)</li>
+<li>見出しの文字列はメニューバーへ送られる</li>
+</ul>
+<pre><code>ほげ
+===</code></pre>
+<p>もしくは</p>
+<pre><code># ほげ</code></pre>
+</section><section class="slide level2">
+
+<p>例えば、以下のようなRmdを準備します:</p>
+<p><img src="pics/fdb/fdb_layout_6.png" /></p>
+</section><section class="slide level2">
+
+<p>こんな感じになります:</p>
+<p><img src="pics/fdb/fdb_layout_6out.png" /></p>
+</section><section id="もっとサンプルがみたい" class="slide level2">
+<h2>もっとサンプルがみたい</h2>
+<ul>
+<li>公式サイトのlayoutを眺めてください</li>
+</ul>
+<p><a href="http://rmarkdown.rstudio.com/flexdashboard/layouts.html" class="uri">http://rmarkdown.rstudio.com/flexdashboard/layouts.html</a></p>
+</section></section>
+<section><section id="コンポーネント" class="titleslide slide level1"><h1>コンポーネント</h1></section><section id="主な要素" class="slide level2">
+<h2>主な要素</h2>
+<ul>
+<li>表</li>
+<li>静的なプロット</li>
+<li>インタラクティブな要素</li>
+<li>fdb専用</li>
+</ul>
+</section><section id="表" class="slide level2">
+<h2>表</h2>
+<ul>
+<li><code>knitr::kable()</code>が便利
+<ul>
+<li>dfをまんま投げても、いい感じにしてくれる</li>
+</ul></li>
+<li><code>DT::datatable()</code>も便利
+<ul>
+<li>検索とか絞り込みをインタラクティブにできる</li>
+<li>ただし、あまりウィンドウサイズの変化に対応しづらい</li>
+</ul></li>
+</ul>
+</section><section id="静的なプロット" class="slide level2">
+<h2>静的なプロット</h2>
+<ul>
+<li>baseのプロットもOK</li>
+<li>ggplot2もOK</li>
+<li>まあ大体大丈夫です</li>
+</ul>
+</section><section id="htmlwidgets系パッケージ" class="slide level2">
+<h2>htmlwidgets系パッケージ</h2>
+<p>いろいろ使えます:</p>
+<ul>
+<li>leaflet</li>
+<li>plotly</li>
+<li>dygraphs</li>
+<li>Plotly</li>
+<li>visNetwork</li>
+</ul>
+<p>などなど</p>
+</section><section id="valueboxes" class="slide level2">
+<h2>ValueBoxes</h2>
+<p>単一の値をシンプルに示せます:</p>
+<p><img src="pics/fdb/fdb_vbox.png" /></p>
+<p><code>valueBox()</code>関数でOK</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">valueBox</span>(value, <span class="dt">icon =</span> <span class="st">&quot;fa-pencil&quot;</span>)</code></pre></div>
+</section><section id="gauges" class="slide level2">
+<h2>Gauges</h2>
+<p>ようはメーターを作ることができます:</p>
+<p><img src="pics/fdb/fdb_gauge.png" /></p>
+<p><code>gauge()</code>関数でOK</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gauge</span>(value, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">50</span>, <span class="kw">gaugeSectors</span>(
+  <span class="dt">success =</span> <span class="kw">c</span>(<span class="dv">41</span>, <span class="dv">50</span>), <span class="dt">warning =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">40</span>), <span class="dt">danger =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)
+))</code></pre></div>
+</section></section>
+<section><section id="応用例" class="titleslide slide level1"><h1>応用例</h1></section><section id="クライアントごとにダッシュボードを作成" class="slide level2">
+<h2>クライアントごとにダッシュボードを作成</h2>
+<p>(実演)</p>
+</section><section id="shinyの利用" class="slide level2">
+<h2>Shinyの利用</h2>
+<ul>
+<li><code>runtime: shiny</code>をyamlに書いてください</li>
+<li>あとはShinyで調べてください</li>
+</ul>
+</section></section>
+<section><section id="デプロイ公開" class="titleslide slide level1"><h1>デプロイ(公開)</h1></section><section id="基本はhtmlファイル" class="slide level2">
+<h2>基本はhtmlファイル</h2>
+<ul>
+<li>普通にWebサーバーに設置してOK</li>
+<li><code>self_contained: true</code>なら単一htmlになる
+<ul>
+<li>ただしあまりおすすめしません</li>
+</ul></li>
+<li>shinyを使っている場合はshinyがバックグラウンドで動作している必要あり
+<ul>
+<li>shiny serverなどに絞られる</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="さいごに" class="titleslide slide level1"><h1>さいごに</h1></section><section id="わからなかったら" class="slide level2">
+<h2>わからなかったら…</h2>
+<ul>
+<li>公式サイト</li>
+<li>Kazutan.Rのサイト</li>
+<li>r-wakalang</li>
+<li><code>#おしえてぞうさん</code></li>
+</ul>
+</section><section id="enjoy" class="slide level2">
+<h2>Enjoy!</h2>
+</section></section>
+    </div>
+  </div>
+
+  <script src="fdb_intro_s_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="fdb_intro_s_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+<script type="text/javascript">
+/* 2カラムにするHTMLオブジェクトを取得 */
+var myElements = document.getElementsByClassName('twocol');
+
+/* 2カラム化 */
+for(var i = 0; i < myElements.length; i++){
+  
+  /* 変数定義 */
+  var myChildren = myElements[i].children;
+  var leftIndex = -1;
+  var rightIndex = -1;
+  
+  /* leftとrightのインデックス取得 */
+  for(var index = 0; index < myChildren.length; index++){
+    if(myChildren[index].classList.contains('left')){
+      leftIndex = index;
+    }
+    if(myChildren[index].classList.contains('right')){
+      rightIndex = index;
+    }
+  }
+
+  /* leftとrightのインデックスを元に対象を配列化 */
+  var leftElement = [];
+  for(var index = leftIndex; index < rightIndex; index++){
+    leftElement.push(myChildren[index]);
+  }
+  var rightElement = [];
+  for(var index = rightIndex; index < myChildren.length; index++){
+    rightElement.push(myChildren[index]);
+  }
+  
+  /* leftの対象をcolumn1に移す */
+  var leftWrapDiv = document.createElement('div');
+  leftWrapDiv.setAttribute('class', 'column1');
+  myChildren[leftIndex].parentNode.insertBefore(leftWrapDiv, myChildren[leftIndex]);
+  for(var index = 0; index < leftElement.length; index++){
+    leftWrapDiv.appendChild(leftElement[index]);
+  }
+  
+  /* rightの対象をcolumn2に移す */
+  var rightWrapDiv = document.createElement('div');
+  rightWrapDiv.setAttribute('class', 'column2');
+  myChildren[leftIndex].parentNode.insertBefore(rightWrapDiv, myChildren[rightIndex]);
+  for(var index = 0; index < rightElement.length; index++){
+    rightWrapDiv.appendChild(rightElement[index]);
+  }
+  
+  /* column1とcolumn2にstyleを付与 */
+  leftWrapDiv.setAttribute('style', 'float: left; width: 49%;');
+  rightWrapDiv.setAttribute('style', 'float: right; width: 49%');
+}
+</script>
+
+  </body>
+</html>

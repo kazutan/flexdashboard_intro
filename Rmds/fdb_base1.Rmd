@@ -1,0 +1,38 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+knitr::kable(mtcars)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+library(ggplot2)
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+```
+
+### Chart C
+
+```{r}
+library(plotly)
+plot_ly(data = mtcars, x = ~cyl, y =~mpg, type = "box")
+```
+

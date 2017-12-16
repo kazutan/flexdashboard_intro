@@ -1,0 +1,47 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+kosaki
+===
+
+col1 {data-width=50}
+---
+
+### ひとつめ
+
+```{r}
+plot(1:10)
+```
+
+kutori
+===
+
+col2 {data-width=20}
+---
+
+### ふたつめ
+
+```{r}
+plot(11:20)
+```
+
+### みっつめ
+
+```{r}
+plot(20:11)
+```
+
+### よっつめ
+
+```{r}
+plot(1:5)
+```
+
+

@@ -1,0 +1,25 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+rows
+---
+
+```{r}
+plot(1:10)
+```
+
+rows
+---
+
+```{r}
+plot(11:20)
+```
+

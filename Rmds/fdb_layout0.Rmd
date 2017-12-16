@@ -1,0 +1,27 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard
+  
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+Column
+-----------------------------------------------------------------------
+
+```{r}
+plot(1:10)
+```
+
+Column
+-----------------------------------------------------------------------
+
+```{r}
+library(ggplot2)
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) + geom_point()
+```
+
+
